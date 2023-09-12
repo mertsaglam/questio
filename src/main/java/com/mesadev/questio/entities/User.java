@@ -1,6 +1,6 @@
 package com.mesadev.questio.entities;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 
 @Entity
