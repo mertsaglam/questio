@@ -8,6 +8,7 @@ import com.mesadev.questio.requests.CommentCreateRequest;
 import com.mesadev.questio.requests.CommentUpdateRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,6 +63,7 @@ public class CommentService {
             commentToSave.setText(newCommentRequest.getText());
             commentToSave.setUser(user);
             commentToSave.setPost(post);
+            commentToSave.setCreateDate(new Date());
 
             return commentRepository.save(commentToSave);
         }

@@ -30,8 +30,8 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
-    public Post getSinglePost(@PathVariable Long postId){
-        return postService.getSinglePostById(postId);
+    public PostResponse getSinglePost(@PathVariable Long postId){
+        return postService.getSinglePostByIdWithLikes(postId);
     }
 
     @PutMapping("/{postId}")

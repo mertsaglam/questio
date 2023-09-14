@@ -11,6 +11,7 @@ import com.mesadev.questio.responses.PostResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -44,7 +45,14 @@ public class PostService {
 
 
     public Post getSinglePostById(Long postId) {
+
         return postRepository.findById(postId).orElse(null);
+    }
+
+    public PostResponse getSinglePostByIdWithLikes(Long postId) {
+        List<LikeResponse> likes = likeService.getAllLikes(Optional.of(postId), Optional.ofNullable(null));
+        Post p = postRepository.findById(postId).orElse(null);
+        return new PostResponse(p, likes);
     }
 
     public Post createSinglePost(PostCreateRequest newPostRequest) {
@@ -58,6 +66,7 @@ public class PostService {
             postToSave.setText(newPostRequest.getText());
             postToSave.setTitle(newPostRequest.getTitle());
             postToSave.setUser(user);
+            postToSave.setCreateDate(new Date());
             return postRepository.save(postToSave);
         }
     }

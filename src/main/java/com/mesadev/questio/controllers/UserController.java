@@ -1,6 +1,7 @@
 package com.mesadev.questio.controllers;
 
 import com.mesadev.questio.entities.User;
+import com.mesadev.questio.responses.UserResponse;
 import com.mesadev.questio.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,9 +28,11 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public User getSingleUserById(@PathVariable Long userId){
-        return userService.getSingleUser(userId);
+    public UserResponse getSingleUserById(@PathVariable Long userId){
+
+        return new UserResponse(userService.getSingleUser(userId));
     }
+
 
     @PutMapping("/{userId}")
     public User updateSingleUser(@PathVariable Long userId, @RequestBody User newUser){
@@ -38,5 +41,15 @@ public class UserController {
     @DeleteMapping("/{userId}")
     public void deleteSingleUser(@PathVariable Long userId){
         userService.deleteById(userId);
+    }
+
+    @GetMapping("/activity/{userId}")
+    public List<Object> getUserActivity(@PathVariable Long userId){
+        return userService.getUserActivity(userId);
+
+    }
+    @PostMapping("/{userId}/{AvatarId}")
+    public User updateUserAvatar(@PathVariable Long userId,@PathVariable Integer AvatarId){
+        return userService.updateUserAvatar(userId,AvatarId);
     }
 }
